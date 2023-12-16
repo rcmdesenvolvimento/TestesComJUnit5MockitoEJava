@@ -2,7 +2,9 @@ package com.info.grid.api.service;
 
 import com.info.grid.api.domain.User;
 
-public interface UserService {
+import java.util.List;
 
+public interface UserService {
     User findById(Integer id);
+    List<User> findAll();
 }
