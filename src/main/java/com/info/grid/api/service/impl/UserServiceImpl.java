@@ -3,6 +3,7 @@ package com.info.grid.api.service.impl;
 import com.info.grid.api.domain.User;
 import com.info.grid.api.repository.UserRepository;
 import com.info.grid.api.service.UserService;
+import com.info.grid.api.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Integer id) {
         Optional<User> obj = this.userRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 }
