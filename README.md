@@ -7,4 +7,6 @@
   <li>h2 Database</li>
   <li>Lombok</li>
   <li>ModelMapper</li>
+  <li>JUnit 5</li>
+  <li>Mockito</li>
 </ul>
