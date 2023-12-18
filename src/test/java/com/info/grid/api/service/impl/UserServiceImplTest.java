@@ -3,6 +3,7 @@ package com.info.grid.api.service.impl;
 import com.info.grid.api.domain.User;
 import com.info.grid.api.domain.dto.UserDTO;
 import com.info.grid.api.repository.UserRepository;
+import com.info.grid.api.service.exceptions.ObjectNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -46,7 +47,7 @@ class UserServiceImplTest {
 
     @Test
     void whenFindByIdThenReturnAnUserInstance() {
-        when((repository.findById(anyInt()))).thenReturn(optionalUser);
+        when(repository.findById(anyInt())).thenReturn(optionalUser);
 
         User response = service.findById(ID);
 
@@ -54,6 +55,18 @@ class UserServiceImplTest {
         assertEquals(User.class, response.getClass());
         assertEquals(ID, response.getId());
     }
+
+    @Test
+    void whenFindByIdThenReturnAndObjectNotFoundException(){
+        when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException("Objecto não encontrado"));
+        try {
+            service.findById(ID);
+        }catch (Exception ex){
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals("Objecto não encontrado", ex.getMessage());
+        }
+    }
+
 
     @Test
     void findAll() {
