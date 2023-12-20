@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
@@ -58,11 +59,11 @@ class UserServiceImplTest {
     }
 
     @Test
-    void whenFindByIdThenReturnAndObjectNotFoundException(){
+    void whenFindByIdThenReturnAndObjectNotFoundException() {
         when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException(OBJECTO_NÃO_ENCONTRADO));
         try {
             service.findById(ID);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             assertEquals(ObjectNotFoundException.class, ex.getClass());
             assertEquals(OBJECTO_NÃO_ENCONTRADO, ex.getMessage());
         }
@@ -74,7 +75,7 @@ class UserServiceImplTest {
         when(repository.findAll()).thenReturn(List.of(user));
         List<User> response = service.findAll();
         assertNotNull(response);
-        assertEquals(1,  response.size());
+        assertEquals(1, response.size());
         assertEquals(User.class, response.get(0).getClass());
 
         assertEquals(ID, response.get(0).getId());
@@ -84,7 +85,18 @@ class UserServiceImplTest {
     }
 
     @Test
-    void create() {
+    void whenCreateThenReturnSuccess() {
+        when(repository.save(any())).thenReturn(user);
+
+        User response = service.create(userDTO);
+
+        assertNotNull(response);
+        assertEquals(User.class, response.getClass());
+
+        assertEquals(ID, response.getId());
+        assertEquals(NAME, response.getName());
+        assertEquals(EMAIL, response.getEmail());
+        assertEquals(PASSWORD, response.getPassword());
     }
 
     @Test
