@@ -5,9 +5,10 @@
   <li>Spring Boot 3.1.6</li>
   <li>Spring Data JPA</li>
   <li>Spring Validation</li>
-  <li>h2 Database</li>
+  <li>H2 in-memory database</li>
+  <li>Maven 3</li>
   <li>Lombok</li>
   <li>ModelMapper</li>
   <li>JUnit 5</li>
-  <li>Mockito</li>
+  <li>Unit Tests with Mocking (Mockito)</li>
 </ul>
